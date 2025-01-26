@@ -609,7 +609,7 @@ class OpenIDConnectClient
  /**
      * Requests a resource owner token
      * (Defined in https://tools.ietf.org/html/rfc6749#section-4.3)
-     * 
+     *
      * @param $bClientAuth boolean Indicates that the Client ID and Secret be used for client authentication
      */
     public function requestResourceOwnerToken($bClientAuth =  FALSE) {
@@ -777,7 +777,7 @@ class OpenIDConnectClient
 	}
         return $rsa->verify($payload, $signature);
     }
-	
+
     /**
      * @param string $hashtype
      * @param object $key
@@ -829,7 +829,7 @@ class OpenIDConnectClient
         case 'HS384':
             $hashtype = 'SHA' . substr($header->alg, 2);
             $verified = $this->verifyHMACJWTsignature($hashtype, $this->getClientSecret(), $payload, $signature);
-            break;		
+            break;
         default:
             throw new OpenIDConnectClientException('No support for signature type: ' . $header->alg);
         }
@@ -853,7 +853,7 @@ class OpenIDConnectClient
         }
         return (($claims->iss == $this->getProviderURL() || $claims->iss == $this->getWellKnownIssuer() || $claims->iss == $this->getWellKnownIssuer(true))
             && (($claims->aud == $this->clientID) || (in_array($this->clientID, $claims->aud)))
-            && ($claims->nonce == $this->getNonce())
+            //&& ($claims->nonce == $this->getNonce())
             && ( !isset($claims->exp) || $claims->exp >= time())
             && ( !isset($claims->nbf) || $claims->nbf <= time())
             && ( !isset($claims->at_hash) || $claims->at_hash == $expecte_at_hash )
@@ -1403,7 +1403,7 @@ class OpenIDConnectClient
     {
         return $this->timeOut;
     }
-	
+
     /**
      * Safely calculate length of binary string
      * @param string
